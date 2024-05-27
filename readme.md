@@ -7,23 +7,23 @@ This project `might be` for the un-initiated wiery code slinger who just wants
 cliff notes on random Python modules, syntax & language constructs, and obscure  *flying circus* reference!  
 
 As it happens, I'm that aforementioned and thought it a good idea to try and capture some
-\(if only a minuscule amount\) useful information while on this sojourn.  Thus a repo immerged, replete with runnable code peppered in witty inner-monolog.  
+\(if only a minuscule amount\) useful information while on this sojourn.  Thus a repo emerged replete with runnable code and witty inner-monolog.  
 
 
 ## Python and Machine Learning
 
-Yeah, now I have your attention.  So what brought me to this state of affairs was another journey "of a thousands steps". Which as the subtitle suggest, was Machine Learning and Large Language Model training. 
+So what brought me to this state of affairs were steps along the Machine Learning "journey of a thousand" intrigues and diversions. 
 
-Turned out much of that technology is dependent on Python too and its katana wielding - number crunching - data slicing frameworks PyTorch, NumPy, SciPy, etc.
+Turned out much of that technology is dependent on Python and its katana wielding - number crunching - data slicing technologies like PyTorch, NumPy, SciPy and so on. My advice, Python is required kungfu if planning to tame the Machine Learning AI tiger. 
 
- Python is required kungfu if you intent to tame that tiger. Code examples specific to dataset and training models are included as well.
+I'll include code and command examples specific to my experience with Python, datasets and training models.
 
 
 ## In Summary
 
-Allow me to summarize. As this old dog learns new Python tricks, I'll add code examples as time allows. If you're feeling generous and want to contribute, fork that branch and create a pull request. 
+As this old dog learns new Python tricks that codify into unforgettable coding pearls of wisdom, they'll be added. And if you're feeling generous and want to contribute, fork that branch and create a pull request with gems of your own.
 
-I'm grateful to any who freely contribute to projects, forums, talks shows, knitting clubs, and professional media outlets.  Without your open source thinking and generous time-gift, I'd probably be reading books and watching HOWTOs. Thanks You. Seriously.
+And know that I'm grateful to all who freely contribute to projects, forums, talks shows, knitting circles, and trampoline competitions.  Without your open source thinking and generous donation of time, I'd probably be reading books and watching HOWTOs right now. Thank You. Seriously!
 
 
 ## Role Credits
