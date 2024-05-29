@@ -2,13 +2,15 @@
 # Phunktions - a phunkadelic encapsulation of logic
 # author: ronwhite562@gmail.com
 # v1.0, 20240526
-
-# phind the next number increment in a sequence of random numbers, 
-# without using a builtin method, and in constant time O(1)!
-# 
-# - the old tried and true are never out of scope! 
 #
-import math
+# orders a random list of input numbers without using sort() method.
+# takes input and append() or insert() each number into an output list, 
+# realtive to the range of current output numbers, and in constant time O(1)!
+#
+# usage: output = placeNextNumber(input)
+# prints [3, 4, 5, 7, 13, 18, 20, 32, 72]
+#
+# - see NumPy (https://numpy.org)
 import numpy as np
 
 input = [20,4,18,32,7,13,3,72,5]
@@ -18,101 +20,78 @@ class Ranger():
     lmh = [0,0,0]
 
     def computeLMH(self,lo,hi,out) -> list:
+        # NOTE: out' list length is 0 at start with no defined size or boundary.
+        # each of input' vals increments outs list, however, 0 thru 2 `middle` value
+        # (or central tendency) can be negatives, so those iterations are simple averages.
         outCnt = len(out)
-        print("-> ranger.computeLMH output count ",outCnt)
-
-        # average central tendency of outputs middle value wont 
-        # necessarly match the actual middle value of outputs list items.
-        # but it can be used to get close to what that would be, as apposed
-        # to a simple middle item for a variable list length.
-        # NOTE: 1:3 can have negative numbers when outputs
-        # # list length is under three items.
         ave = (lo - hi) / 2 if outCnt < 3 else round(sum(out)/len(out))
         av = round(ave * -1) if ave < 0 else ave
-        print("-> computed ave ",ave)
         ct = hi - av if ave < 0 else ave
 
         self.lmh[0] = 1 if lo == 0 else lo
         self.lmh[1] = ct
         self.lmh[2] = hi
-        print("-> assign new lms vals ",self.lmh)
+
+        # print("computeLMH returns lms",self.lmh)
         return self.lmh
 
 
-# will search, sort, and save in one go
-# regardless of its input size and order.
+def findNearestNum(out,snum):
+    # takes list and returns closest value search number. 
+    # value can be higher or lower than search.
+    array = np.asarray(out)
+    idx = (np.abs(array - snum)).argmin()
+    return array[idx]
+
+
+# same as sort(), ie order from disordered.
+# :Return: List[] in asending order, ex. [3,4,5...,72]
 #
-def phindNextNumber(input) -> list:
-    i,lo,hi,lt = 0,0,0,0
+def placeNextNumber(input) -> list:
+    i,lo,hi = 0,0,0
     out = []
 
     ranger = Ranger()
     ranger.lmh = ranger.computeLMH(1,10,out)
 
-    for np in input:
-        print("START: ",i)
-        print(": lmh[] range ",ranger.lmh)
+    for nn in input:
+        # print("START: ",i)
 
-        if np > ranger.lmh[2]:
-            print(": R2 np ",np)
-            out.append(np) # new upper boundary
+        if nn > ranger.lmh[2]:
+            out.append(nn) # new upper boundary
             lo = ranger.lmh[0]
-            hi = np
+            hi = nn
 
-        elif np > ranger.lmh[1]:
-            print(": R1 np ",np) 
-            # x = out.index(lt)
-            # x += 1
-            e = findNearestNum(out,np)
-            print(": 67 findNearestNum value ",e)
-            x = 1 if len(out) <= 1 else out.index(e) + 1 if e < np else out.index(e)
-            out.insert(x,np) # in upper range
+        elif nn > ranger.lmh[1]:
+            e = findNearestNum(out,nn)
+            x = 1 if len(out) <= 1 else out.index(e) + 1 if e < nn else out.index(e)
+            out.insert(x,nn) # in upper range
             lo = out[0]
             hi = out[-1]
 
-        elif np > ranger.lmh[0] and np < ranger.lmh[1]:
-            print(": R0 np ",np) 
-            e = findNearestNum(out,np)
-            print(": 76 findNearestNum value ",e)
-            x = 0 if len(out) <= 1 else out.index(e) + 1 if e < np else out.index(e)
-            print(": 78 index ",x)
-            out.insert(x,np)
+        elif nn > ranger.lmh[0] and nn < ranger.lmh[1]:
+            e = findNearestNum(out,nn)
+            x = 0 if len(out) <= 1 else out.index(e) + 1 if e < nn else out.index(e)
+            out.insert(x,nn) # in lower range
             lo = ranger.lmh[0]
             hi = ranger.lmh[2]
         
         else:
-            lln = out[0]
-            x = 0 if np < lln else out.index(ranger.lmh[0])
-            lo = np if np < lln else ranger.lmh[0]
+            pn = out[0]
+            x = 0 if nn < pn else out.index(ranger.lmh[0])
+            out.insert(x,nn) # a new low
+            lo = nn if nn < pn else ranger.lmh[0]
             hi = ranger.lmh[2]
 
-        lt = np
-        print(": lo " + str(lo) + ", hi " + str(hi) + ", lt " + str(lt) + " out cnt " + str(len(out)))
-        print(out)
-        ranger.lhm = ranger.computeLMH(lo,hi,out)
-        print("DONE: ",i)
+        # print(out)
+        # print("DONE: ",i)
         i += 1
+
+        ranger.lhm = ranger.computeLMH(lo,hi,out)
 
     return out
 
 
-def computeLMH(lo,hi) -> list:
-    m = (lo - hi) / 2
-    m = round(m * -1) if m < 0 else m
-
-    lmh = [0,0,0]
-    lmh[0] = 1 if lo == 0 else lo
-    lmh[1] = m
-    lmh[2] = hi
-
-    print(": assign new lms vals ",lmh)
-    return lmh
-
-
-def findNearestNum(out,item):
-    array = np.asarray(out)
-    idx = (np.abs(array - item)).argmin()
-    return array[idx]
-
-output = phindNextNumber(input)
+output = placeNextNumber(input)
+print("choas or order? ",output) # order, boo...
         
