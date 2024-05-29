@@ -3,9 +3,9 @@
 # author: ronwhite562@gmail.com
 # v1.0, 20240526
 #
-# orders a random list of input numbers without using sort() method.
-# takes input and append() or insert() each number into an output list, 
-# realtive to the range of current output numbers, and in constant time O(1)!
+# orders a random list of numbers without using sort() method.
+# takes input values and append() or insert() each into a list of ascending 
+# numbers - relative to the current output - and in constant time O(1)!
 #
 # usage: output = placeNextNumber(input)
 # prints [3, 4, 5, 7, 13, 18, 20, 32, 72]
@@ -93,5 +93,5 @@ def placeNextNumber(input) -> list:
 
 
 output = placeNextNumber(input)
-print("choas or order? ",output) # order, boo...
+print("chaos or order? ",output) # order, boo...
         
