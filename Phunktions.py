@@ -20,9 +20,9 @@ class Ranger():
     lmh = [0,0,0]
 
     def computeLMH(self,lo,hi,out) -> list:
-        # NOTE: out' list length is 0 at start with no defined size or boundary.
-        # each of input' vals increments outs list, however, 0 thru 2 `middle` value
-        # (or central tendency) can be negatives, so those iterations are simple averages.
+        # NOTE: outputs length is 0 at start with no defined size or boundary.
+        # meaning, the `middle`(or central tendency) value can be negative 
+        # for 0...2 loops, those iterations are contrived simple averages.
         outCnt = len(out)
         ave = (lo - hi) / 2 if outCnt < 3 else round(sum(out)/len(out))
         av = round(ave * -1) if ave < 0 else ave
@@ -45,17 +45,18 @@ def findNearestNum(out,snum):
 
 
 # same as sort(), ie order from disordered.
-# :Return: List[] in asending order, ex. [3,4,5...,72]
+# :Return: List[] in asending order, ex. [3,4,...,72]
 #
 def placeNextNumber(input) -> list:
     i,lo,hi = 0,0,0
     out = []
 
+    # seed range to start with an arbitrary lo, hi
     ranger = Ranger()
     ranger.lmh = ranger.computeLMH(1,10,out)
 
     for nn in input:
-        # print("START: ",i)
+        # print("placing input number ",nn)
 
         if nn > ranger.lmh[2]:
             out.append(nn) # new upper boundary
@@ -65,28 +66,27 @@ def placeNextNumber(input) -> list:
         elif nn > ranger.lmh[1]:
             e = findNearestNum(out,nn)
             x = 1 if len(out) <= 1 else out.index(e) + 1 if e < nn else out.index(e)
-            out.insert(x,nn) # in upper range
+            out.insert(x,nn) # inserted in upper range
             lo = out[0]
             hi = out[-1]
 
         elif nn > ranger.lmh[0] and nn < ranger.lmh[1]:
             e = findNearestNum(out,nn)
             x = 0 if len(out) <= 1 else out.index(e) + 1 if e < nn else out.index(e)
-            out.insert(x,nn) # in lower range
+            out.insert(x,nn) # inserted in lower range
             lo = ranger.lmh[0]
             hi = ranger.lmh[2]
         
         else:
             pn = out[0]
             x = 0 if nn < pn else out.index(ranger.lmh[0])
-            out.insert(x,nn) # a new low
+            out.insert(x,nn) # a new lower low
             lo = nn if nn < pn else ranger.lmh[0]
             hi = ranger.lmh[2]
 
+        # print("placed! ",i)
         # print(out)
-        # print("DONE: ",i)
         i += 1
-
         ranger.lhm = ranger.computeLMH(lo,hi,out)
 
     return out
