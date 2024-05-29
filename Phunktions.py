@@ -5,7 +5,7 @@
 #
 # orders a random list of numbers without using sort() method.
 # takes input values and append() or insert() each into a list of ascending 
-# numbers - relative to the current output - and in constant time O(1)!
+# numbers - relative to the current output value range - and in constant time O(1)!
 #
 # usage: output = placeNextNumber(input)
 # prints [3, 4, 5, 7, 13, 18, 20, 32, 72]
@@ -20,9 +20,13 @@ class Ranger():
     lmh = [0,0,0]
 
     def computeLMH(self,lo,hi,out) -> list:
-        # NOTE: outputs length is 0 at start with no defined size or boundary.
+        # NOTE: outputs list length is 0 at start with no defined size or boundary.
         # meaning, the `middle`(or central tendency) value can be negative 
         # for 0...2 loops, those iterations are contrived simple averages.
+        ll = lo if lo < hi else hi
+        hh = hi if hi > lo else lo
+        lo, hi = ll, hh
+
         outCnt = len(out)
         ave = (lo - hi) / 2 if outCnt < 3 else round(sum(out)/len(out))
         av = round(ave * -1) if ave < 0 else ave
@@ -51,7 +55,7 @@ def placeNextNumber(input) -> list:
     i,lo,hi = 0,0,0
     out = []
 
-    # seed range to start with an arbitrary lo, hi
+    # seed range with arbitrary lo, hi
     ranger = Ranger()
     ranger.lmh = ranger.computeLMH(1,10,out)
 
@@ -66,21 +70,21 @@ def placeNextNumber(input) -> list:
         elif nn > ranger.lmh[1]:
             e = findNearestNum(out,nn)
             x = 1 if len(out) <= 1 else out.index(e) + 1 if e < nn else out.index(e)
-            out.insert(x,nn) # inserted in upper range
+            out.insert(x,nn) # in upper range
             lo = out[0]
             hi = out[-1]
 
         elif nn > ranger.lmh[0] and nn < ranger.lmh[1]:
             e = findNearestNum(out,nn)
             x = 0 if len(out) <= 1 else out.index(e) + 1 if e < nn else out.index(e)
-            out.insert(x,nn) # inserted in lower range
+            out.insert(x,nn) # in lower range
             lo = ranger.lmh[0]
             hi = ranger.lmh[2]
         
         else:
             pn = out[0]
             x = 0 if nn < pn else out.index(ranger.lmh[0])
-            out.insert(x,nn) # a new lower low
+            out.insert(x,nn) # a new low
             lo = nn if nn < pn else ranger.lmh[0]
             hi = ranger.lmh[2]
 
@@ -93,5 +97,5 @@ def placeNextNumber(input) -> list:
 
 
 output = placeNextNumber(input)
-print("chaos or order? ",output) # order, boo...
+print("chaos or order? ",output) # entrophy wins again, booh...
         
