@@ -37,15 +37,15 @@ class Ranger():
 
 
 def findNearestNum(out,snum):
-    # takes list and returns closest value search number. 
-    # value can be higher or lower than search.
+    # takes list and returns closest value to search number. 
+    # return value will be higher or lower than search term.
     array = np.asarray(out)
     idx = (np.abs(array - snum)).argmin()
     return array[idx]
 
 
-# same as sort(), ie order from disordered.
-# :Return: List[] in asending order, ex. [3,4,...,72]
+# orders disorderly lists of numbers, similar to sort()
+# :return: List[] in ascending order [3,4,...,72]
 #
 def placeNextNumber(input) -> list:
     i,lo,hi = 0,0,0
@@ -56,7 +56,7 @@ def placeNextNumber(input) -> list:
     ranger.lmh = ranger.computeLMH(1,10,out)
 
     for nn in input:
-        # print("placing input number ",nn)
+        # print("placing input val ",nn)
 
         if nn > ranger.lmh[2]:
             out.append(nn) # new upper boundary
