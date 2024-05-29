@@ -4,9 +4,9 @@
 # v1.0, 20240525
   
 
-## the Tyranny of Ternaries
+## the tyranny of Ternaries
 # Apples single byte:  min = "a" if a < b else "b"
-# Berries nested ops:  min = "a" if a > b else "c" if c < b else "b"
+# Berries many options:  min = "a" if a > b else "c" if c < b else "b"
 #
 option = ["red","blue","green"]
 
@@ -41,15 +41,15 @@ lastChoice = Berry(4,6,8)
 print("My Apples are " + firstChoice.color + " over " + lastChoice.color + " Berries!")
 
 
-# Duck Duck Witch
-# Duck Typing works on the principle that one object can be replace another 
-# as long as each class implements some of the same methods and attributes.  
-# The method matters for duck sake. More than the object that defined it!
+## Duck Duck Witch
+# Duck Typing works on the principle that one object can replace by another 
+# - as long as each implement some of the same methods and/or attributes.  
 # 
-# Pythons interpreter replaces the original object at runtime as long as a 
-# common method or attribute exists in the replacement object.
+# At runtime, the interpreter can replace the original compiled object 
+# as long as the method or attribute is also available in the runtime replacement.
+# The methods matter for duck sake!
 #
-# Strickly speaking, dynamically typed languages implement the Liskov
+# `Strickly speaking` (ahem), dynamically typed languages implement the Liskov
 # substitution priciple with less grief than their strong typed counterparts.
 #
 class Duck:
@@ -66,8 +66,8 @@ class Trial:
         duck.canFloat()
 
 
-# if walks like a Duck and quacks like a Duck, 
-# it must be a witch!
+# If it walks like a Duck, and quacks like a Duck... 
+# It must be a witch!
 ducks = Duck()
 newts = Newt()
 
